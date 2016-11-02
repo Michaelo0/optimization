@@ -65,12 +65,11 @@ int Simplex::start()
 {
 	std::cout << "На основе первоначальных данных составлена симплекс-таблица:" << std::endl;
 	print();
-	//Когда-нибудь здесь будет поиск опорного решения
 	std::cout<<"Ищем опорное решение:"<<std::endl;
-	if(first_column_doing_something_you_know()<0)
+	if(first_column()<0)
 		std::cout<<"Нет";
 	std::cout << "Так как все элементы столбца S_i0 неотрицательны, имеем опорное решение. \\nАнализируем строку F:" << std::endl;
-	if (last_row_doing_something_you_know() < 0)
+	if (last_row() < 0)
 		std::cout << "Нет ";
 	else
 	{
@@ -90,39 +89,39 @@ int Simplex::start()
 }
 
 
-int Simplex::first_column_doing_something_you_know()
+int Simplex::first_column()
 {
 	int i=0, j=0;
 	int r=0, k=0;
-	int count_for_while = 1;
-	while (count_for_while) {
+	int count = 1;
+	while (count) {
 		for (i = 0; i < row - 1; i++) {
 			if (Matrix[i][j] < 0) {
 				std::cout << leftstring[i] << " - разрешающая строка. Ищем разрешающий столбец." << std::endl;
 
 				r = i;
-				k = search_good_column_to_swap_you_know(r);
+				k = search_good_column(r);
 				if (k < 0) {
-					std::cout << "Нет возможных решений :(" << std::endl;
+					std::cout << "Нет возможных решений " << std::endl;
 					return -1;
 				}
-                r = search_good_row_to_swap_you_know(k);
+                r = search_good_row(k);
                 if (r < 0) {
-                    std::cout << "Нет возможных решений :(" << std::endl;
+                    std::cout << "Нет возможных решений " << std::endl;
                     return -1;
                 }
 				swap(r, k);
-				count_for_while = 2;
+				count = 2;
 				i = row;
 			}
 		}
-		if (count_for_while != 1) count_for_while = 1;
+		if (count != 1) count = 1;
 		else count_for_while = 0;
 	}
     return 0;
 }
 
-int Simplex::search_good_column_to_swap_you_know(int r)
+int Simplex::search_good_column(int r)
 {
 	int j = 0;
 	for (j = 1; j < col; j++)
@@ -136,12 +135,12 @@ int Simplex::search_good_column_to_swap_you_know(int r)
 
 }
 
-int Simplex::last_row_doing_something_you_know()
+int Simplex::last_row()
 {
 	int i = row - 1, j = 0;
 	int r = 0, k = 0;
-	int count_for_while = 1;
-	while (count_for_while)
+	int count = 1;
+	while (count)
 	{
 		for (j = 1; j < col; j++)
 		{
@@ -150,10 +149,10 @@ int Simplex::last_row_doing_something_you_know()
 				std::cout << upstring[j] << " - разрешающий столбец. Ищем разрешающую строку." << std::endl;
 
 				k = j;
-				r = search_good_row_to_swap_you_know(k);
+				r = search_good_row(k);
 				if (r < 0)
 				{
-					std::cout << "Нет возможных решений :(" << std::endl;
+					std::cout << "Нет возможных решений " << std::endl;
 					return -1;
 				}
 				swap(r, k);
@@ -161,13 +160,13 @@ int Simplex::last_row_doing_something_you_know()
 				j = col;
 			}
 		}
-		if (count_for_while != 1) count_for_while = 1;
+		if (count != 1) count = 1;
 		else count_for_while = 0;
 	}
 	return 0;
 }
 
-int Simplex::search_good_row_to_swap_you_know(int k)
+int Simplex::search_good_row(int k)
 {
 	int i = 0, j = 0;
 	int imin=0;

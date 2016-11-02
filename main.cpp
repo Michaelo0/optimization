@@ -3,7 +3,7 @@
 int main()
 {
 	setlocale(LC_ALL, "russian");
-	char char_for_while;
+    char input;
 	double c[3] = { 8, 6, 2 };
 	double A[3][3] = { 2, 1, 1, 1, 4, 0, 0, 0.5, 1 };
 	double b[3] = { 4, 3, 6 };
@@ -14,8 +14,8 @@ int main()
 		a->start();
 		delete a;
 		std::cout << "Еще раз? (y/n) ";
-		std::cin >> char_for_while;
-		if(char_for_while == 'y' || char_for_while == 'Y')
+		std::cin >> input;
+		if(input == 'y' || input == 'Y')
 		{
 			std::cout<<"Введите c:";
 			for(int i=0; i<Simplex::row-1; i++)
@@ -36,6 +36,6 @@ int main()
 				std::cin>>b[i];
 			}
 		}
-	} while (char_for_while == 'y' || char_for_while == 'Y');
+	} while (input == 'y' || input == 'Y');
 	return 0;
 }
