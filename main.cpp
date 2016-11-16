@@ -8,8 +8,7 @@ int main()
 	double A[3][3] = { 2, 1, 1, 1, 4, 0, 0, 0.5, 1 };
 	double b[3] = { 4, 3, 6 };
 
-	do
-	{
+	
 		Simplex *a = new Simplex(c, A, b);
 		a->start();
 		delete a;
